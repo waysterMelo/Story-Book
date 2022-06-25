@@ -1,4 +1,4 @@
-I made this only for porpurse to training my skills in 
+I made this basic CRUD, only for porpurse to training my skills in 
 
 ->Node.js express  <br>  ![icons8_nodejs_48px](https://user-images.githubusercontent.com/57998761/175793289-7d50118c-04d4-4c3c-87b6-f2c1562d7253.png)
 

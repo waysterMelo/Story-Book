@@ -11,21 +11,27 @@ const MongoStore = require('connect-mongo')
 const mongoose = require('mongoose');
 
 dotenv.config({ path: './config/.env'})
-
 connectDB();
-
 const app = express();
 
 //logging
 if(process.env.NODE_ENV === 'development'){ app.use(morgan('dev')) }
 
+//body parser
+app.use(express.urlencoded({ extended: false}));
+app.use(express.json());
+
 //Passport Config
 require('./config/passport')(passport);
 
+//handlebars helpers
+const formatDate = require('./helpers/handlebars');
+
 //handlebars
-app.engine('handlebars', hbs.engine()); 
+app.engine('handlebars', hbs.engine({ helpers: formatDate, defaultLayout: 'main' })); 
 app.set('view engine', 'handlebars');
 app.set('views', './views');
+
 
 //Sessions
 app.use(session({
@@ -42,6 +48,7 @@ app.use(passport.session());
 //routes
 app.use('/', require('./routes/index')); 
 app.use('/auth', require('./routes/auth')); 
+app.use('/stories', require('./routes/stories')); 
 
 
 //static folder
